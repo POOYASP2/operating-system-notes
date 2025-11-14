@@ -25,7 +25,7 @@ Objective of the algorithm: minimize the maximum lateness
 
 Preemption: None-preemptive
 
-The main idea: EDD => Earliest Due Date
+The main idea: **EDD** => Earliest Due Date
 
 ![alt text](attachments/section-6/example1.png)
 _Example one for JACKSON's algorithm_
@@ -40,3 +40,18 @@ So in this example we have another **Lmax**
 
 ![alt text](image.png)
 _Example two for JACKSON's algorithm_
+
+### HORN’S ALGORITHM 1 | preem| Lmax
+
+Numbers of processors: 1
+
+Arriving time of the tasks: asynchronous
+
+Objective of the algorithm: minimize the maximum lateness
+
+Preemption: preemptive
+
+The main idea: **EDF** => Earliest Deadline First
+
+![alt text](attachments/section-6/image-1.png)
+_Example one for HORN's algorithm_
