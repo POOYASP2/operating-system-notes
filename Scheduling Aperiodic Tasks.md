@@ -38,7 +38,7 @@ $$
 
 So in this example we have another **Lmax**
 
-![alt text](image.png)
+![alt text](attachments/section-6/example2.png)
 _Example two for JACKSON's algorithm_
 
 ### HORN’S ALGORITHM 1 | preem| Lmax
