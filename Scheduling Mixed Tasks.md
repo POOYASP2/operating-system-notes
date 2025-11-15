@@ -27,3 +27,21 @@ Disadvantages:
 _BACKGROUND SCHEDULING_
 
 ## POLLING SERVER
+
+Here we have a new terms, **SERVERS**. What is a server ?
+
+A server is a special periodic tasks that created to server aperiodic tasks soon as possible.
+
+Characteristics of a server
+
+- Ts: period of the server
+- Cs: capacity/budget of the server.
+
+For Polling servers, it is scheduled using **RM** as other periodic tasks.
+
+The main difference between a **POLLING SERVER** from a **DEFERRABLE SERVER** is a polling server consumes its budget either running an aperiodic task or immediately if no aperiodic tasks is ready.
+
+The budget or capacity of a Polling Server is recharged at the beginning of each new period.
+
+![alt text](attachments/section-6/polling-server-example.png)
+_Example of Polling Server_
