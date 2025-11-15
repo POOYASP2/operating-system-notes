@@ -45,3 +45,33 @@ The budget or capacity of a Polling Server is recharged at the beginning of each
 
 ![alt text](attachments/section-6/polling-server-example.png)
 _Example of Polling Server_
+
+### FEASIBILITY OF POLLING SERVER
+
+Considering **n** period tasks each with utilization $U_i$ and a polling server with utilization
+$U_s=C_s/T_s$, the task set is feasible with RM if
+
+$$
+\prod_{i=1}^{n} (U_i + 1) \le \frac{2}{U_s + 1}
+$$
+
+### DIMENSIONING THE POLLING SERVER
+
+How to set $C_c$ and $T_s$ so that the resulting scheduling is feasible? => we are looking for the
+polling server maximum utilization factor: $U_s^{max}$
+
+$$
+P \;\overset{\text{def}}{=} \prod_{i=1}^{n} (U_i + 1)
+$$
+
+<br>
+
+$$
+U_{s}^{max} = \frac{2-P}{P}
+$$
+
+Given $U_s^{\max}$, the rule of thumb is the following:
+
+- Set $U_s$ at most equal to $U_s^{\max}$
+- Set $T_s$ as the period of the periodic task with the shortest period (the polling server becomes the highest-priority task)
+- Set $C_s = U_s \, T_s$
