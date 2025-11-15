@@ -41,7 +41,7 @@ For Polling servers, it is scheduled using **RM** as other periodic tasks.
 
 The main difference between a **POLLING SERVER** from a **DEFERRABLE SERVER** is a polling server consumes its budget either running an aperiodic task or immediately if no aperiodic tasks is ready.
 
-The budget or capacity of a Polling Server is recharged at the beginning of each new period.
+The budget or capacity of a Polling Server is recharged at the beginning of each **new period of the server**.
 
 ![alt text](attachments/section-6/polling-server-example.png)
 _Example of Polling Server_
@@ -75,3 +75,40 @@ Given $U_s^{\max}$, the rule of thumb is the following:
 - Set $U_s$ at most equal to $U_s^{\max}$
 - Set $T_s$ as the period of the periodic task with the shortest period (the polling server becomes the highest-priority task)
 - Set $C_s = U_s \, T_s$
+
+## DEFERRABLE SERVER
+
+Compared to the **Polling Server**, **Deferrable Servers** have higher priority. We can use them when we want to minimize our latency of the aperiodic tasks.
+
+DS preserves its capacity if no requests are pending
+
+The capacity is maintained until the end of the period
+
+Aperiodic requests can be serviced at the same server’s priority at anytime, as long as the
+capacity has not been exhausted
+
+At the beginning of any **server period**, the capacity is replenished at its full value
+
+![alt text](<attachments/section-6/DEFERRABLE SERVER.png>)
+_example of deferrable server_
+
+### FEASIBILITY OF DEFERRABLE SERVER
+
+Considering $n$ periodic tasks each with utilization $U_i$ and a deferrable server with utilization $U_s = \frac{C_s}{T_s}$, the task set is feasible with RM if:
+
+$$
+\prod_{i=1}^{n} (U_i + 1) \le \frac{U_s + 2}{2U_s + 1}
+$$
+
+### DIMENSIONING THE DEFERRABLE SERVER
+
+How to set $C_s$ and $T_s$ so that the resulting scheduling is feasible?  
+We are looking for the polling server maximum utilization factor: $U_s^{\max}$
+
+$$
+P \;\overset{\text{def}}{=} \prod_{i=1}^{n} (U_i + 1)
+$$
+
+$$
+U_s^{\max} = \frac{2 - P}{2P - 1}
+$$
