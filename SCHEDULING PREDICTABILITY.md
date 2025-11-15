@@ -210,3 +210,21 @@ _system calls_
 ## SEMAPHORES and MEMORY MANAGEMENT
 
 We talk about these topics later. Who is we ?
+
+## Programming Language
+
+### Restrictions Needed for Real-Time Systems
+
+#### No dynamic data structures
+
+- Dynamic arrays and memory allocation must be avoided.
+- They prevent correct estimation of allocation/deallocation time.
+
+#### No recursion
+
+- Recursive calls make it impossible to determine execution time.
+- The analyzer cannot predict how many recursive calls or how much stack space will be used.
+
+#### Time-bounded loops
+
+- To estimate execution time at compile time, every loop must have a **known maximum number of iterations**.
