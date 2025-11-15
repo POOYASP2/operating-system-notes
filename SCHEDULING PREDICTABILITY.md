@@ -206,3 +206,7 @@ DMA relieves the CPU from I/O management by sending a Bus Request to take contro
 
 ![alt text](attachments/section-6/system-call.png)
 _system calls_
+
+## SEMAPHORES and MEMORY MANAGEMENT
+
+We talk about these topics later. Who is we ?
