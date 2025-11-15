@@ -63,3 +63,42 @@ DMA relieves the CPU from I/O management by sending a Bus Request to take contro
 - Task completion time is **independent** of DMA activity.
 
 - **DMA is nondeterministic** because its bus usage and blocking duration vary with data size and system activity.
+
+## CACHE MEMORY
+
+### What Cache Is
+
+- A fast memory placed between the CPU and RAM to speed up execution.
+- On each access, hardware checks the cache:
+  - **Cache hit:** data from cache (fast)
+  - **Cache miss:** data from RAM + cache refill (slow)
+- Uses **program locality** (temporal + spatial).
+
+---
+
+### Sources of Nondeterminism
+
+- **Hit ratio varies** → execution time changes unpredictably → WCET hard to compute.
+- **Preemption destroys locality** → more cache misses → higher WCET.
+- Example (PowerPC MPC7410): WCET increases by **33%** under preemptive scheduling.
+
+---
+
+### Solutions
+
+#### 1. Disable Cache
+
+- Slower system but **deterministic** and WCET easy to predict.
+
+#### 2. Overestimate WCET
+
+- Assume worst-case (mostly misses).
+- WCET safe and predictable but wastes CPU time.
+
+---
+
+### Super-Short Exam-Ready Version
+
+- Cache improves speed but **adds nondeterminism** (hit/miss variability + preemption effects).
+- Hard to compute WCET exactly.
+- Real-time fixes: **disable cache** or **use conservative WCET overestimation**.
