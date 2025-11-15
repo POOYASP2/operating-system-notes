@@ -102,3 +102,89 @@ DMA relieves the CPU from I/O management by sending a Bus Request to take contro
 - Cache improves speed but **adds nondeterminism** (hit/miss variability + preemption effects).
 - Hard to compute WCET exactly.
 - Real-time fixes: **disable cache** or **use conservative WCET overestimation**.
+
+## Interrupts
+
+### Basics
+
+- Interrupts signal that an I/O event has occurred.
+- An ISR (Interrupt Service Routine) executes immediately and preempts the running task.
+
+### Issues in Real-Time Systems
+
+- Long ISRs create **unpredictable execution times**.
+- Interrupt arrival rate cannot be tightly bounded.
+- ISR-induced preemption increases WCET.
+
+---
+
+### Interrupt Handling Solutions
+
+#### Solution 1 — Polling
+
+- Disable all interrupts except the timer.
+- Tasks manually check device status (**busy waiting**).
+- Fully deterministic but CPU-inefficient.
+
+#### Solution 2 — I/O as Aperiodic Tasks (Servers)
+
+- Interrupts disabled except timer.
+- I/O treated as aperiodic tasks served by servers.
+- Slow devices → shared low-frequency server.
+- Fast devices → dedicated high-frequency server.
+- Still requires some busy waiting inside servers.
+
+---
+
+#### Solution 3 — Deferred Interrupt Handling
+
+##### Key Idea
+
+- **All interrupts stay enabled.**
+- Interrupt handling is divided between a **Driver** and a **Task**.
+
+##### Driver (ISR)
+
+- Executes when the interrupt occurs.
+- **Very short execution time.**
+- Its role: **activate the corresponding task** (e.g., signal or wake it up).
+
+##### Task
+
+- Processes the event associated with the interrupt.
+- The task is **scheduled by the OS**.
+- The driver triggers it, but the actual work happens inside the task.
+
+#### Event Flow
+
+1. Event **E** occurs in the system.
+2. The **Driver** is executed.
+3. The driver **activates** the respective task **JE**.
+4. The **JE task** performs the event handling.
+
+#### Important Notes
+
+- The driver must be short → **negligible execution time**.
+- The driver only activates the task; the task handles the event itself.
+
+### Interrupts — Super-Short Exam-Ready Version
+
+#### Problem
+
+- Interrupts can create **unpredictable timing** because ISRs preempt tasks and their arrival rate is not easily bounded.
+
+#### Structure of Solution 3
+
+- **Driver (ISR):** extremely short; only activates the corresponding task.
+- **Task:** scheduled by the OS; performs the full event handling.
+
+#### Execution Flow
+
+1. Event occurs.
+2. Driver runs briefly.
+3. Driver activates task JE.
+4. Task JE handles the event.
+
+#### Key Point
+
+- Short driver → negligible overhead; predictable and analyzable real-time behavior.
