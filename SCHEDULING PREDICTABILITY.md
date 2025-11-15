@@ -188,3 +188,21 @@ DMA relieves the CPU from I/O management by sending a Bus Request to take contro
 #### Key Point
 
 - Short driver → negligible overhead; predictable and analyzable real-time behavior.
+
+## System Calls
+
+### Key Points
+
+- The execution time of system calls must be known and considered when checking real-time schedulability.
+- **System calls must be pre-emptible**; otherwise, they may delay the activation or execution of critical tasks.
+- Any non-preemptible section inside the kernel introduces unpredictability.
+
+### Example
+
+- A standard Linux (vanilla) kernel is **not suitable for real-time**:
+  - Many kernel functions (including system calls) are **not Preemptible**.
+- To improve determinism, kernel extensions are required:
+  - The kernel must be made **fully Preemptible** to ensure predictable timing.
+
+![alt text](attachments/section-6/system-call.png)
+_system calls_
