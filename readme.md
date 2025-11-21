@@ -10,6 +10,7 @@
 ## FreeRTOS
 
 - [[Introduction to FreeRTOS]]
+- [[TIMERS AND FREERTOS]]
 
 [Scheduling Aperiodic Tasks]: <Scheduling Aperiodic Tasks.md> 'Scheduling Aperiodic Tasks'
 [Scheduling Mixed Tasks]: <Scheduling Mixed Tasks.md> 'Scheduling Mixed Tasks'
