@@ -49,7 +49,7 @@ we have to type of the real time applications:
 
 FreeRTOS is a lightweight **real-time** **FLAT operating system** built for embedded systems with limited resources. It provides **deterministic** scheduling, a tiny low-power kernel, and a small memory footprint. FreeRTOS is **open-source** and **portable**, and consists of modular functions that are linked into the final executable to provide OS features. It offers fast execution, low overhead, and extensive documentation, making it suitable for resource-constrained real-time applications.
 
-### FreeRTOS kernel
+## FreeRTOS kernel
 
 ok, this is important part.
 For this part we have some terms
@@ -66,7 +66,7 @@ When we realize free-rtos is suitable for independent architecture purpose, we m
 
 So we deep going about the files of the kernel:
 
-![alt text](attachments/section-6/free-rtos-kernel.png)
+![alt text](attachments/section-7/free-rtos-kernel.png)
 _notes, we have another architecture independent folder inside the portable which is `MemMang`_
 
 In general, FreeRTOS codes and folders separate between our two needs.
@@ -91,7 +91,7 @@ Everything inside the portable folder used for architecture dependent needs. eve
 MemMang used for memory management and it is replaced `malloc` and `free` function of the c programming.
 Inside this folder we have these functions:
 
-![alt text](attachments/section-6/MemMang.png)
+![alt text](attachments/section-7/MemMang.png)
 
 We usually use `heap_4.c`. it satisfies our free and malloc functions without fragmentation issue.
 
@@ -104,4 +104,137 @@ We usually use `heap_4.c`. it satisfies our free and malloc functions without fr
 - Add the corresponding include path so `portmacro.h` is found during compilation.
 - Combine these architecture-specific files with the generic FreeRTOS kernel sources (e.g., `tasks.c`, `queue.c`, `timers.c`, etc.) to complete the build.
 
-![alt text](attachments/section-6/free-rtos-dependent-archeticture.png)
+![alt text](attachments/section-7/free-rtos-dependent-archeticture.png)
+
+---
+
+### Include folder
+
+This folder contains essential utilities headers which we use them when we want use FreeRTOS functions. The most important part of this folder is `FreeRTOSConfig.h`. There we defined our configuration for FreeRTOS and everywhere else we add this header and use it.
+Our configure parameters:
+
+- Preemption
+- CPU Clock
+- Tick Rate
+- Stack
+- Heap
+- Task Name
+- Trace
+- Tick Width
+- Mutex
+- Stack Overflow Check
+- Queue Sets
+- Semaphore
+- Priorities
+- Static Allocation
+- Timer
+
+![alt text](attachments/section-7/FreeRTOS-Configuration.png)
+
+---
+
+## FreeRTOS Demos
+
+We use the configuration of that demo for our device. It is a template for our starting.
+
+## Tasks and Process in FreeRTOS
+
+In a RTOS everything is based on tasks
+
+![alt text](attachments/section-7/FreeRTOS-Process.png)
+
+### Create task structure
+
+![alt text](attachments/section-7/create-a-task-freertos.png)
+
+![alt text](attachments/section-7/return-function-type.png)
+
+How to create task and use them in simple way in FreeRTOS
+
+```C
+#include "FreeRTOS.h"
+#include "task.h"
+
+#include "uart.h"
+
+#define mainTASK_PRIORITY    ( tskIDLE_PRIORITY + 2 )
+
+void vTaskFunction(void *pvParameters);
+void vTaskFunction2(void *pvParameters);
+
+int main(int argc, char **argv){
+
+	(void) argc;
+	(void) argv;
+
+    UART_init();
+
+	xTaskCreate(
+		// Function which implements the task
+		vTaskFunction,
+		// Name of the task (debug purposes, not used by the kernel)
+		"Task1",
+		// Stack to allocate to the task
+		configMINIMAL_STACK_SIZE,
+		// Parameter passed to the task. Not needed for Hello World example
+		NULL,
+		// Priority assigned to the task
+		mainTASK_PRIORITY,
+		// Task handle. Not required
+		NULL
+	);
+
+	xTaskCreate(
+		// Function which implements the task
+		vTaskFunction2,
+		// Name of the task (debug purposes, not used by the kernel)
+		"Task2",
+		// Stack to allocate to the task
+		configMINIMAL_STACK_SIZE,
+		// Parameter passed to the task. Not needed for Hello World example
+		NULL,
+		// Priority assigned to the task
+		mainTASK_PRIORITY ,
+		// Task handle. Not required
+		NULL
+	);
+
+	// Give control to the scheduler
+	vTaskStartScheduler();
+
+	// If everything ok should never reach here
+    for( ; ; );
+}
+
+/* Task Function */
+void vTaskFunction(void *pvParameters) {
+
+	// Avoid warning about unused pvParameters
+	(void) pvParameters;
+
+    for (;;) {
+
+        // Task code: print a message
+        UART_printf("Hello, World!\n");
+
+        // Delay for 1 second
+        // vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+
+void vTaskFunction2(void *pvParameters) {
+	// Avoid warning about unused pvParameters
+	(void) pvParameters;
+
+    for (;;) {
+
+        // Task code: print a message
+        UART_printf("Hello, World! From Task2\n");
+
+        // Delay for 1 second
+        // vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+
+
+```
