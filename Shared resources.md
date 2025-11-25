@@ -75,3 +75,7 @@ Disadvantages:
 ### solution
 
 ![alt text](attachments/section-6/solutions.jpg)
+
+## Our tools in freeRTOS
+
+![alt text](attachments/section-6/our-tools-freeRTOS.jpg)
