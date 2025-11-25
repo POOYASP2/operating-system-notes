@@ -53,3 +53,25 @@ Disadvantages:
 
 - Wastes CPU cycles while waiting (busy-waiting)
 - Not ideal for single-processor systems
+
+### Semaphores
+
+![alt text](attachments/section-6/semaphores.png)
+
+### Semaphores vs busy waiting
+
+| Aspect                                  | Busy Waiting                                                               | Semaphore                                                                                         |
+| --------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Waiting behaviour                       | Process keeps running while waiting (spins in a loop).                     | Process is moved to WAIT state if it cannot enter critical section; a context switch takes place. |
+| CPU usage while waiting                 | Continuously consumes CPU cycles.                                          | Does not consume CPU while blocked; CPU can run other tasks.                                      |
+| Performance note                        | 1 spin of busy waiting ≈ 1 unit of CPU work.                               | 1 context switch costs ≈ 1000× CPU cycles of a single busy-wait spin.                             |
+| Small critical section (few CPU cycles) | Better choice: only a few CPU cycles are wasted; no context switch needed. | Worse: context-switch overhead is large compared to the short critical section.                   |
+| Big critical section (many CPU cycles)  | Worse choice: a whole time slice can be wasted spinning.                   | Better: task sleeps while waiting; the time slice is not wasted doing busy waiting.               |
+
+## THE PRIORITY INVERSION PROBLEM AND solutions
+
+![alt text](attachments/section-6/inve.jpg)
+
+### solution
+
+![alt text](attachments/section-6/solutions.jpg)
