@@ -13,6 +13,10 @@
 - [[Introduction to FreeRTOS]]
 - [[TIMERS AND FREERTOS]]
 
+## IO
+
+- [[IO]]
+
 [Scheduling Aperiodic Tasks]: <Scheduling Aperiodic Tasks.md> 'Scheduling Aperiodic Tasks'
 [Scheduling Mixed Tasks]: <Scheduling Mixed Tasks.md> 'Scheduling Mixed Tasks'
 [SCHEDULING PREDICTABILITY]: <SCHEDULING PREDICTABILITY.md> 'SCHEDULING PREDICTABILITY'
