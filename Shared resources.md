@@ -2,7 +2,7 @@
 
 **Q -** what is resource?
 
-> any software structure used by **processes** to **advance** its **execution** like Data structure, set of variables, main memory area, file, set of registers of a peripheral device
+> Any software structure used by **processes** to **advance** its **execution** like Data structure, set of variables, main memory area, file, set of registers of a peripheral device
 
 We have two types of the resources:
 
