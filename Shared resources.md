@@ -15,7 +15,7 @@ We have two types of the resources:
 ![alt text](attachments/section-6/Race-problem.png)
 
 Actually, the `count++` process is not a single instruction for CPU.
-May in the middle of that operation the CPU preempts the process and run other instructions and our shared resource changed in this preemption. So we must a solution for race problem. the lecturer presents these solutions:
+May in the middle of that operation the CPU preempts the process and run other instructions and our shared resource changed in this preemption. So we must find a solution for race problem. The lecturer presents these solutions:
 
 1. Disabling the interrupts
 2. SPINLOCK — BUSY WAITING
