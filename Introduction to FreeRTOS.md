@@ -67,7 +67,6 @@ When we realize free-rtos is suitable for independent architecture purpose, we m
 So we deep going about the files of the kernel:
 
 ![alt text](attachments/section-7/free-rtos-kernel.png)
-_notes, we have another architecture independent folder inside the portable which is `MemMang`_
 
 In general, FreeRTOS codes and folders separate between our two needs.
 
