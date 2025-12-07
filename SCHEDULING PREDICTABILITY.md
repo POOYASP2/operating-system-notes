@@ -21,11 +21,11 @@ DMA is used by many peripheral devices to transfer _data_ between the _device_ a
 
 What is the mainly job of the DMA?
 
-It relieves the CPU of the task of controlling the I/O transfer
+    It relieves the CPU of the task of controlling the I/O transfer
 
-The CPU and the I/O device share the same bus
+The CPU and the I/O device share the same bus. The CPU is blocked when the DMA device is performing a data transfer.
 
-The CPU is blocked when the DMA device is performing a data transfer
+So here is the source of the **Nondeterminism**.
 
 <br>
 
